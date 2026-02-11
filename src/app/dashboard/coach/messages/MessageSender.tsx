@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import MessageComposer from '@/components/messages/MessageComposer'
 import { useRouter } from 'next/navigation'
