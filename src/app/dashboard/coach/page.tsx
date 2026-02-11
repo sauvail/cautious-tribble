@@ -49,6 +49,9 @@ export default async function CoachDashboard() {
                 <a href="/dashboard/coach/programs" className="text-gray-600 hover:text-gray-900">
                   Programs
                 </a>
+                <a href="/dashboard/coach/messages" className="text-gray-600 hover:text-gray-900">
+                  Messages
+                </a>
               </div>
             </div>
             <div className="flex items-center gap-4">

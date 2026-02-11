@@ -26,13 +26,18 @@ This document provides an overview of the implemented features in the StrongCoac
   - Create new workout programs with multiple workout days
   - Add exercises to workouts with sets, reps, weight, and rest time
   - Organize exercises within each workout day
-- **Navigation**: Clean navigation between Athletes, Exercises, and Programs sections
+- **Messaging**:
+  - View list of coached athletes
+  - Select athlete to message
+  - View conversation history
+  - Send messages to athletes
+- **Navigation**: Clean navigation between Athletes, Exercises, Programs, and Messages sections
 
 ### 4. Athlete Dashboard & Features
 - **Main Dashboard**:
   - Welcome message with coach information
   - Display key stats (Max Squat, Bench, Deadlift)
-  - Placeholders for programs and recent activity
+  - Navigation to programs, messages, and calendar
 - **Programs View**:
   - View all programs assigned by coach
   - See program status and details
@@ -48,6 +53,14 @@ This document provides an overview of the implemented features in the StrongCoac
   - Mark sets as completed
   - Navigate between exercises
   - Complete entire workout
+- **Messaging**:
+  - View conversation with coach
+  - Send messages to coach
+  - Real-time message display
+- **Calendar**:
+  - View events in calendar grid
+  - See upcoming events list
+  - Color-coded event types (program, competition, holiday, other)
 
 ### 5. Database Schema
 - **Complete Schema**: All tables created with proper relationships
@@ -80,7 +93,11 @@ This document provides an overview of the implemented features in the StrongCoac
   - Landing page tests
   - Authentication flow tests
   - User setup tests
-  - Dashboard placeholder tests
+  - Dashboard tests
+  - Messaging system tests
+  - Calendar functionality tests
+  - Program and workout feature tests
+  - Mobile responsiveness tests
 - **GitHub Actions**: CI/CD pipeline for automated testing and builds
 
 ## Architecture & Tech Stack
@@ -116,21 +133,33 @@ src/
 │   │   │   ├── programs/
 │   │   │   │   ├── page.tsx        # Programs list
 │   │   │   │   └── [id]/page.tsx   # Program details
-│   │   │   └── workout/[id]/page.tsx # Workout tracking
+│   │   │   ├── workout/[id]/page.tsx # Workout tracking
+│   │   │   ├── messages/
+│   │   │   │   ├── page.tsx        # Messages with coach
+│   │   │   │   └── MessageSender.tsx # Message sender component
+│   │   │   └── calendar/page.tsx   # Calendar view
 │   │   ├── coach/
 │   │   │   ├── page.tsx            # Coach dashboard
 │   │   │   ├── exercises/page.tsx  # Exercise library
 │   │   │   ├── invite/page.tsx     # Invitation generator
-│   │   │   └── programs/
-│   │   │       ├── page.tsx        # Programs list
-│   │   │       └── create/page.tsx # Program creator
+│   │   │   ├── programs/
+│   │   │   │   ├── page.tsx        # Programs list
+│   │   │   │   └── create/page.tsx # Program creator
+│   │   │   └── messages/
+│   │   │       ├── page.tsx        # Messages with athletes
+│   │   │       └── MessageSender.tsx # Message sender component
 │   │   └── page.tsx                # Dashboard router
 │   ├── setup/page.tsx              # User setup
 │   ├── layout.tsx                  # Root layout
 │   └── page.tsx                    # Landing page
 ├── components/
-│   └── auth/
-│       └── GoogleAuthButton.tsx    # Google sign-in button
+│   ├── auth/
+│   │   └── GoogleAuthButton.tsx    # Google sign-in button
+│   ├── messages/
+│   │   ├── MessageList.tsx         # Message display component
+│   │   └── MessageComposer.tsx     # Message input component
+│   └── calendar/
+│       └── CalendarView.tsx        # Calendar grid component
 ├── lib/
 │   ├── supabase.ts                 # Client-side Supabase client
 │   └── supabase-server.ts          # Server-side Supabase client
@@ -153,6 +182,7 @@ src/
 - [x] Create workout programs
 - [x] Add exercises to workouts
 - [x] Manage multiple workout days
+- [x] Message athletes
 
 ### Athlete Features ✅
 - [x] View assigned programs
@@ -161,14 +191,15 @@ src/
 - [x] Track sets/reps/weight
 - [x] Complete workouts
 - [x] View stats dashboard
+- [x] Message coach
+- [x] View calendar and events
 
 ### Pending Features
-- [ ] Messaging system between coach and athlete
-- [ ] Calendar for deadlines and events
-- [ ] Athlete profile editing by coach (notes)
-- [ ] Program assignment to specific athletes
-- [ ] Advanced stats and analytics
-- [ ] Exercise creation by coaches
+- [ ] Program assignment to specific athletes (currently all programs visible to all athletes)
+- [ ] Exercise creation by coaches (coaches can only view pre-defined exercises)
+- [ ] Athlete profile editing by coach (notes field exists but no edit UI)
+- [ ] Advanced stats and analytics (currently using mock data)
+- [ ] Real stats calculations from workout logs
 - [ ] Program templates
 
 ## Setup Instructions
@@ -192,13 +223,15 @@ The application is ready for deployment to Vercel:
 
 ## Notes for Future Development
 
-1. **Messaging System**: Schema is ready, UI components need to be built
-2. **Calendar**: Schema is ready, calendar component needs implementation
-3. **Program Assignment**: Currently all programs are visible to athletes; add athlete-program relationship table
+1. **Messaging System**: ✅ Fully implemented with UI components and database integration
+2. **Calendar**: ✅ Calendar view implemented with event display and color coding
+3. **Program Assignment**: Currently all programs are visible to athletes; add athlete-program relationship table for targeted assignment
 4. **Stats Calculation**: Currently using mock data; implement actual calculation from workout logs
 5. **File Uploads**: Add profile pictures and exercise demonstration videos
 6. **Notifications**: Email/push notifications for new programs or messages
 7. **Mobile App**: Consider React Native wrapper for native mobile experience
+8. **Exercise Creation**: Allow coaches to create custom exercises beyond the default library
+9. **Athlete Notes Editing**: Add UI for coaches to edit athlete notes from the dashboard
 
 ## Security Considerations
 
