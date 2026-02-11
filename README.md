@@ -145,16 +145,16 @@ See `supabase-schema.sql` for the complete schema with Row-Level Security polici
 - [x] Project setup and infrastructure
 - [x] Database schema design
 - [x] Authentication with Google OAuth
-- [ ] User role selection and profile management
-- [ ] Coach dashboard and athlete management
-- [ ] Program creation and editing interface
-- [ ] Athlete workout viewer and tracker
-- [ ] Messaging system
-- [ ] Stats and analytics dashboard
-- [ ] Calendar functionality
-- [ ] Mobile optimization
-- [ ] Comprehensive Cypress test suite
-- [ ] CI/CD with GitHub Actions
+- [x] User role selection and profile management
+- [x] Coach dashboard and athlete management
+- [x] Program creation and editing interface
+- [x] Athlete workout viewer and tracker
+- [x] Messaging system
+- [x] Stats and analytics dashboard
+- [x] Calendar functionality
+- [x] Mobile optimization
+- [x] Comprehensive Cypress test suite
+- [x] CI/CD with GitHub Actions
 
 ## Contributing
 
