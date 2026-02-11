@@ -1,5 +1,7 @@
 # StrongCoach
 
+![CI/CD Pipeline](https://github.com/sauvail/cautious-tribble/actions/workflows/ci.yml/badge.svg)
+
 A modern web application for coaches and athletes to create, manage, and track workout programs.
 
 ## Features
