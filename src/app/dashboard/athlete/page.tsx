@@ -54,6 +54,9 @@ export default async function AthleteDashboard() {
                 <a href="/dashboard/athlete/programs" className="text-gray-600 hover:text-gray-900">
                   Programs
                 </a>
+                <a href="/dashboard/athlete/messages" className="text-gray-600 hover:text-gray-900">
+                  Messages
+                </a>
                 <a href="/dashboard/athlete/calendar" className="text-gray-600 hover:text-gray-900">
                   Calendar
                 </a>
