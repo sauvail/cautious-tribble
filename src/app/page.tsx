@@ -1,4 +1,5 @@
 import GoogleAuthButton from '@/components/auth/GoogleAuthButton'
+import EmailAuthForm from '@/components/auth/EmailAuthForm'
 
 export default function Home() {
   return (
@@ -18,6 +19,21 @@ export default function Home() {
             <p className="text-sm text-gray-500 text-center">
               Connect with your coach or athletes to create, track, and share workout programs
             </p>
+
+            {/* Email/Password Authentication */}
+            <EmailAuthForm />
+
+            {/* Divider */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="bg-white px-2 text-gray-500">Or continue with</span>
+              </div>
+            </div>
+
+            {/* Google OAuth */}
             <GoogleAuthButton />
           </div>
 
