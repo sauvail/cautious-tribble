@@ -1,26 +1,37 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || ''
+let client: SupabaseClient | null = null
 
-// Create a dummy client for build time if env vars are not set
-const createSupabaseClient = () => {
+// Create supabase client lazily on first access
+const getSupabaseClient = () => {
+  if (client) return client
+
+  // Only access env vars in the browser to ensure proper hydration
+  const supabaseUrl = typeof window !== 'undefined'
+    ? process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+    : ''
+  const supabasePublishableKey = typeof window !== 'undefined'
+    ? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || ''
+    : ''
+
   if (!supabaseUrl || !supabasePublishableKey) {
     // Return a minimal client that won't crash during build
-    return createClient('https://placeholder.supabase.co', 'placeholder-key', {
+    client = createClient('https://placeholder.supabase.co', 'placeholder-key', {
       auth: {
         persistSession: false,
         autoRefreshToken: false,
       },
     })
+  } else {
+    client = createClient(supabaseUrl, supabasePublishableKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+      },
+    })
   }
 
-  return createClient(supabaseUrl, supabasePublishableKey, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-    },
-  })
+  return client
 }
 
-export const supabase = createSupabaseClient()
+export const supabase = getSupabaseClient()
