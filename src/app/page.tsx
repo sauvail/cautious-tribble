@@ -1,7 +1,23 @@
+'use client'
+
 import GoogleAuthButton from '@/components/auth/GoogleAuthButton'
 import EmailAuthForm from '@/components/auth/EmailAuthForm'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+  const searchParams = useSearchParams()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    const error = searchParams.get('error')
+    if (error) {
+      setErrorMessage(decodeURIComponent(error))
+      // Clear the error from the URL
+      window.history.replaceState({}, '', '/')
+    }
+  }, [searchParams])
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
       <main className="flex w-full max-w-md flex-col items-center gap-8 rounded-2xl bg-white p-8 shadow-xl">
@@ -19,6 +35,13 @@ export default function Home() {
             <p className="text-sm text-gray-500 text-center">
               Connect with your coach or athletes to create, track, and share workout programs
             </p>
+
+            {/* Display OAuth error if present */}
+            {errorMessage && (
+              <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+                {errorMessage}
+              </div>
+            )}
 
             {/* Email/Password Authentication */}
             <EmailAuthForm />

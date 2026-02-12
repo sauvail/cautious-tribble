@@ -26,7 +26,12 @@ export async function GET(request: Request) {
       }
     )
 
-    await supabase.auth.exchangeCodeForSession(code)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+
+    if (error) {
+      // Redirect to home page with error
+      return NextResponse.redirect(`${origin}/?error=${encodeURIComponent(error.message)}`)
+    }
   }
 
   // URL to redirect to after sign in process completes
