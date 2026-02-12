@@ -68,9 +68,10 @@ export default function EmailAuthForm() {
         // Redirect to dashboard
         window.location.href = '/dashboard'
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Auth error:', error)
-      setError(error.message || 'An error occurred during authentication')
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred during authentication'
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
