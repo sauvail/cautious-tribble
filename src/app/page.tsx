@@ -3,9 +3,9 @@
 import GoogleAuthButton from '@/components/auth/GoogleAuthButton'
 import EmailAuthForm from '@/components/auth/EmailAuthForm'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -96,6 +96,18 @@ export default function Home() {
         <p>Sign in to get started with StrongCoach</p>
       </footer>
     </div>
-  );
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="text-gray-600">Loading...</div>
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
+  )
 }
 
